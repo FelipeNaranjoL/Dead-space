@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ds_bg: #050608;
+  --color-necro: #a4161a;
+  --color-plasma: #00b4d8;
+  --font-deadspace: "Orbitron", sans-serif;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap');
+
+body {
+  @apply bg-ds_bg text-gray-200 font-deadspace;
+  background-image: radial-gradient(ellipse at 20% 10%, rgba(14,230,255,0.03), transparent 10%),
+                    radial-gradient(ellipse at 80% 60%, rgba(255,59,59,0.02), transparent 12%);
+}
