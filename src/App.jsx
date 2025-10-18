@@ -9,8 +9,8 @@ export default function App() {
   return (
     <BrowserRouter>
       <div className="min-h-screen text-gray-100">
-        <Navbar />
         <main className="pt-6">
+          <Navbar />
           <Routes>
             <Route path="/" element={<Hero />} />
             <Route path="/historia" element={<Historia />} />
@@ -18,7 +18,7 @@ export default function App() {
             <Route path="/notas" element={<Notas />} />
           </Routes>
         </main>
-        <footer className="mt-12 border-t border-gray-800 py-6 text-center text-sm text-gray-500">
+        <footer className="mt-12 border-t border-black py-6 text-center text-sm text-gray-500">
           Proyecto demo — placeholders usados para imágenes y logo.
           Tema inspirado en Dead Space — respeta derechos de propiedad intelectual al usar assets oficiales.
         </footer>

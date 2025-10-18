@@ -6,7 +6,7 @@ export default function Gallery() {
     return (
         <section className="py-12">
             <div className="max-w-6xl mx-auto px-6">
-                <h2 className="text-3xl font-bold mb-6">Galería</h2>
+                <h2 className="text-3xl text-center font-bold font-dead mb-6">Galería</h2>
 
                 <div className="overflow-hidden rounded-lg border border-gray-800 bg-black/20 p-4">
                     <div className="relative">
