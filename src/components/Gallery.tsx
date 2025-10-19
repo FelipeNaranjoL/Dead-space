@@ -1,44 +1,88 @@
-import Placeholder from './Placeholder'
+import React, { useState } from "react";
+// Importa tus imágenes aquí
+import img1 from '../assets/Galeria/img1.jpg';
+import img2 from '../assets/Galeria/img2.webp';
+import img3 from '../assets/Galeria/img3.jpg';
+import img4 from '../assets/Galeria/img4.jpg';
+import img5 from '../assets/Galeria/img5.jpg';
+import img6 from '../assets/Galeria/img6.jpeg';
+import Fondo from "../assets/Fondo/Fondo.jpg"
 
-export default function Gallery() {
-    const imgs = Array.from({ length: 10 }).map((_, i) => ({ id: i, label: `Foto ${i + 1}` }))
+export default function FeaturedImageGallery() {
+    const data = [img1, img2, img3, img4, img5,img6];
+
+    const [active, setActive] = useState(data[0]);
+    const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <section className="py-12">
-            <div className="max-w-6xl mx-auto px-6">
-                <h2 className="text-3xl text-center font-bold font-dead mb-6">Galería</h2>
+        <section
+            className="py-12 relative text-white"
+            style={{
+                backgroundImage: `url(${Fondo})`,
+                backgroundAttachment: "fixed",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+            }}
+        >
+            {/* Overlay oscuro con opacidad 60% */}
+            <div className="absolute inset-0 bg-black/80"></div>
 
-                <div className="overflow-hidden rounded-lg border border-gray-800 bg-black/20 p-4">
-                    <div className="relative">
-                        <div className="carousel-track will-change-transform">
-                            {[...imgs, ...imgs].map((im, idx) => (
-                                <div key={idx} className="carousel-item min-w-[220px] max-w-[220px] m-2">
-                                    <div className="w-full h-40 rounded overflow-hidden border border-gray-700">
-                                        <Placeholder label={im.label} />
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+            <div className="max-w-6xl mx-auto px-6 relative z-10">
+                <h2 className="text-3xl text-center font-dead font-bold mb-8">Galería</h2>
+
+                <div className="grid gap-6">
+                    {/* Imagen principal - Responsiva */}
+                    <div
+                        className="w-full overflow-hidden rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
+                        onClick={() => setIsOpen(true)}
+                    >
+                        <img
+                            src={active}
+                            alt="Imagen destacada"
+                            className="h-48 sm:h-64 md:h-[620px] lg:h-96 xl:h-[500px] w-full object-cover object-center"
+                        />
+                    </div>
+
+                    {/* Miniaturas interactivas */}
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 md:gap-3">
+                        {data.map((img, idx) => (
+                            <img
+                                key={idx}
+                                src={img}
+                                alt={`gallery-${idx + 1}`}
+                                onClick={() => setActive(img)}
+                                className={`h-16 sm:h-20 md:h-24 w-full rounded-lg cursor-pointer transition-transform duration-150 hover:scale-105 object-cover object-center ${active === img ? "ring-2 ring-red-600" : ""
+                                    }`}
+                            />
+                        ))}
                     </div>
                 </div>
-
-                <p className="mt-4 text-sm text-gray-400">Usa tus propios assets. Actualmente se usan placeholders. El carrusel es automático e infinito.</p>
             </div>
 
-            <style>{`
-        .carousel-track {
-          display: flex;
-          gap: 8px;
-          align-items: flex-start;
-          animation: scroll-left 30s linear infinite;
-          padding: 8px 0;
-        }
-        .carousel-item { flex: 0 0 auto; }
-        @keyframes scroll-left {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-      `}</style>
+            {/* Modal/Popup */}
+            {isOpen && (
+                <div
+                    className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
+                    onClick={() => setIsOpen(false)}
+                >
+                    <div
+                        className="relative max-w-4xl max-h-[90vh]"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <img
+                            src={active}
+                            alt="Imagen ampliada"
+                            className="w-full h-full object-contain"
+                        />
+                        <button
+                            onClick={() => setIsOpen(false)}
+                            className="absolute top-4 right-4 bg-red-600 hover:bg-red-700 text-white rounded-full w-10 h-10 flex items-center justify-center text-2xl transition-colors"
+                        >
+                            ×
+                        </button>
+                    </div>
+                </div>
+            )}
         </section>
-    )
+    );
 }

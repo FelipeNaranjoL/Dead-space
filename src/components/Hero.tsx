@@ -1,31 +1,9 @@
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
-  const audioRef = useRef<HTMLAudioElement>(null);
-  const [audioEnabled, setAudioEnabled] = useState(false);
-
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (audio && audioEnabled) {
-      audio.volume = 0.3;
-      audio.loop = true;
-      audio.play().catch(() => {
-        console.log("El usuario debe interactuar antes de reproducir el sonido.");
-      });
-    }
-  }, [audioEnabled]);
-
-  const handlePlayAudio = () => {
-    const audio = audioRef.current;
-    if (audio) {
-      audio
-        .play()
-        .then(() => setAudioEnabled(true))
-        .catch((err) => console.error("Error al reproducir el sonido:", err));
-    }
-  };
-
+  const navigate = useNavigate();
   return (
     <section className="relative h-[100dvh] flex items-center justify-center overflow-hidden bg-black text-white">
       {/* Fondo parallax */}
@@ -38,7 +16,7 @@ const Hero = () => {
 
       {/* Neblina animada */}
       <video
-        className="absolute inset-0 w-full h-full object-cover opacity-40 pointer-events-none"
+        className="absolute inset-0 w-full h-full object-cover opacity-15 pointer-events-none"
         src="/src/assets/Neblina/neblina.mp4"
         autoPlay
         loop
@@ -56,7 +34,7 @@ const Hero = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 1.5 }}
         >
-          Pendiente
+          El horror despierta en el vacío del espacio
         </motion.h1>
 
         <motion.p
@@ -65,24 +43,22 @@ const Hero = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 2, duration: 1.5 }}
         >
-          Pendiente
+          Agarra tu cortador de plasma y sobrevive a tu peor pesadilla.
         </motion.p>
-
-        {!audioEnabled && (
-          <motion.button
-            onClick={handlePlayAudio}
-            className="mt-6 sm:mt-8 px-4 sm:px-6 md:px-8 py-2 sm:py-3 font-dead bg-red-700 hover:bg-red-800 rounded-md text-white font-semibold transition text-sm sm:text-base md:text-lg"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 3 }}
-          >
-            Activar sonido
-          </motion.button>
-        )}
+        <motion.button
+          onClick={() => navigate("/historia")}
+          className="mt-8 sm:mt-10 md:mt-12 px-6 sm:px-8 md:px-10 py-3 sm:py-4 font-dead bg-red-700 hover:bg-red-800 rounded-md text-white font-semibold transition text-sm sm:text-base md:text-lg"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 3, duration: 1.5 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Ver más
+        </motion.button>
       </div>
 
       {/* Sonido ambiental */}
-      <audio ref={audioRef} src="/src/assets/sounds/hero.mp3" />
     </section>
   );
 };
