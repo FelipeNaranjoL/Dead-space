@@ -9,7 +9,7 @@ const Hero = () => {
       {/* Fondo parallax */}
       <motion.div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('../../public/assets/Hero/hero.gif')" }}
+        style={{ backgroundImage: "url('/assets/Hero/hero.gif')" }}
         animate={{ scale: [1, 1.01, 1] }}
         transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
       />
@@ -17,7 +17,7 @@ const Hero = () => {
       {/* Neblina animada */}
       <video
         className="absolute inset-0 w-full h-full object-cover opacity-15 pointer-events-none"
-        src="../../public/assets/Neblina/neblina.mp4"
+        src="/assets/Neblina/neblina.mp4"
         autoPlay
         loop
         muted
